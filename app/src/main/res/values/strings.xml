@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Name for the application [CHAR LIMIT=12] -->
+    <string name="app_name">Cupboard</string>
+
+    <!-- Label for overflow menu option that inserts fake food data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+    <!-- Label for overflow menu option that deletes all items in the Cupboard [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Empty Cupboard</string>
+
+    <!-- Title for the activity to add a new food [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_food">Add item</string>
+
+    <!-- Title for the activity to edit a food [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_edit_food">Edit item</string>
+
+    <!-- Label for editor menu option to save food and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current food [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
+    <string name="category_overview">Overview</string>
+
+    <!-- Label for use-by date in the editor [CHAR LIMIT=30] -->
+    <string name="category_use_by_date">Use-by date</string>
+
+    <!-- Label for amount of food item in the editor [CHAR LIMIT=30] -->
+    <string name="category_amount">How much?</string>
+
+    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_food_name">Eggs</string>
+
+    <!-- Text hint for use-by date field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_use_by_date">12/07/11</string>
+
+    <!-- Text hint for amount field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_amount">6</string>
+
+    <!-- Label for dropdown menu option if the food item has no units [CHAR LIMIT=20] -->
+    <string name="no_units"> </string>
+
+    <!-- Label for dropdown menu option if the food item is in grams [CHAR LIMIT=20] -->
+    <string name="units_g">g</string>
+
+    <!-- Label for dropdown menu option if the food item is in kg [CHAR LIMIT=20] -->
+    <string name="units_kg">kg</string>
+
+    <!-- Label for dropdown menu option if the food item is in ml [CHAR LIMIT=20] -->
+    <string name="units_ml">ml</string>
+
+    <!-- Label for dropdown menu option if the food item is in litres [CHAR LIMIT=20] -->
+    <string name="units_l">litres</string>
+
+    <!-- Toast if item was added to db successfully -->
+    <string name="editor_insert_food_successful">Item added</string>
+
+    <!-- Toast if adding item to db failed -->
+    <string name="editor_insert_food_failed">Item adding failed</string>
+
+    <!-- Toast if item was updated successfully -->
+    <string name="editor_update_food_successful">Item edited</string>
+
+    <!-- Toast if updating item failed -->
+    <string name="editor_update_food_failed">Item editing failed</string>
+
+    <!-- Title text for the empty view, which accompanies empty Cupboard picture [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">You look pretty hungry</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a food [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Add food to your Cupboard</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current food [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Toast message in editor when current food was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_food_successful">Item deleted</string>
+
+    <!-- Toast message in editor when current food has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_food_failed">Error with deleting item</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current food [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this item?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current food [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current food [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Label for use by date if there is none [CHAR LIMIT=20] -->
+    <string name="no_use_by_date">No use-by date</string>
+
+    <!-- Label for use by date if it is in the past [CHAR LIMIT=20] -->
+    <string name="use_by_date_past">days ago</string>
+
+    <!-- Label for use by date if it is tomorrow [CHAR LIMIT=20] -->
+    <string name="use_by_date_tomorrow">Tomorrow</string>
+
+    <!-- Label for use by date if it is today [CHAR LIMIT=20] -->
+    <string name="use_by_date_today">Today</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_none_label</string>
+
+    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_none_label">None</string>
+    <string name="settings_order_by_none_value" translatable="false">none</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Use-by date</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">usebydate</string>
+
+</resources>
