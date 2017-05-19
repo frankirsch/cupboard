@@ -81,7 +81,19 @@ public class PantryCursorAdapter extends CursorAdapter {
 
         // Read the food attributes from the Cursor for the current food item
         String foodName = cursor.getString(nameColumnIndex);
-        String foodUseByDate = cursor.getString(useByDateColumnIndex);
+        String foodUseByDateUnformatted = cursor.getString(useByDateColumnIndex);
+
+        // Convert use-by date from yyyy-MM-dd format to dd/MM/yy
+        final SimpleDateFormat dataDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+        String foodUseByDate = null;
+        try {
+            Date dataDate = dataDateFormat.parse(foodUseByDateUnformatted);
+            foodUseByDate = dateFormat.format(dataDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Integer foodAmount = cursor.getInt(amountColumnIndex);
         Integer foodUnit = cursor.getInt(unitColumnIndex);
 

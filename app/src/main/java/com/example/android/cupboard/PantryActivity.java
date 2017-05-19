@@ -8,9 +8,11 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,10 @@ import android.widget.ListView;
 
 import com.example.android.cupboard.data.PantryContract;
 import com.example.android.cupboard.data.PantryContract.FoodEntry;
+
+import static com.example.android.cupboard.data.PantryContract.FoodEntry.COLUMN_FOOD_AMOUNT;
+import static com.example.android.cupboard.data.PantryContract.FoodEntry.COLUMN_USE_BY_DATE;
+import static com.example.android.cupboard.data.PantryContract.FoodEntry._ID;
 
 /**
  * Displays list of food items stored in the app.
@@ -120,7 +126,7 @@ public class PantryActivity extends AppCompatActivity implements
         // sample Nandos details are attributes
         ContentValues values = new ContentValues();
         values.put(FoodEntry.COLUMN_FOOD_NAME, "Nandos");
-        values.put(FoodEntry.COLUMN_USE_BY_DATE, "20/04/15");
+        values.put(COLUMN_USE_BY_DATE, "20/04/15");
         values.put(FoodEntry.COLUMN_FOOD_AMOUNT, 100);
         values.put(FoodEntry.COLUMN_FOOD_AMOUNT_UNIT, FoodEntry.UNITS_G);
 
@@ -143,6 +149,11 @@ public class PantryActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
+            // Open settings menu
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertFood();
@@ -194,11 +205,26 @@ public class PantryActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Get preferences for ordering food items
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
+        String orderParm = _ID + " DESC";
+        String orderByDate = getString(R.string.settings_order_by_most_recent_value);
+
+        if (orderBy.equals(orderByDate)){
+            orderParm = "date(" + COLUMN_USE_BY_DATE + ") ASC";
+        }
+
+
         // Define a projection that specifies the columns from the table we care about.
         String[] projection = {
                 PantryContract.FoodEntry._ID,
                 PantryContract.FoodEntry.COLUMN_FOOD_NAME,
-                PantryContract.FoodEntry.COLUMN_USE_BY_DATE,
+                COLUMN_USE_BY_DATE,
                 PantryContract.FoodEntry.COLUMN_FOOD_AMOUNT,
                 PantryContract.FoodEntry.COLUMN_FOOD_AMOUNT_UNIT};
 
@@ -208,7 +234,7 @@ public class PantryActivity extends AppCompatActivity implements
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
-                null);                  // Default sort order
+                orderParm);                  // Default sort order
     }
 
     @Override

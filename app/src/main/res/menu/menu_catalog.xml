@@ -17,6 +17,11 @@
     tools:context=".PantryActivity">
 
     <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings_menu_item"
+        android:orderInCategory="1" />
+
+    <item
         android:id="@+id/action_insert_dummy_data"
         android:title="@string/action_insert_dummy_data"
         app:showAsAction="never" />
@@ -25,4 +30,5 @@
         android:id="@+id/action_delete_all_entries"
         android:title="@string/action_delete_all_entries"
         app:showAsAction="never" />
+
 </menu>

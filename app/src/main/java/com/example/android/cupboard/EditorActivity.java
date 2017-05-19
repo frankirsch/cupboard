@@ -52,8 +52,10 @@ import android.widget.Toast;
 import com.example.android.cupboard.data.PantryContract;
 import com.example.android.cupboard.data.PantryContract.FoodEntry;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -74,7 +76,6 @@ public class EditorActivity extends AppCompatActivity implements
 
     /** EditText field to enter the food's use-by date */
     private EditText mUseByDateEditText;
-    private TextView mUseByDateText;
 
     /** EditText field to enter amount of food */
     private EditText mAmountEditText;
@@ -195,7 +196,7 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Get user input from editor and save food item into database.
      */
-    private void saveFood() {
+    private void saveFood() throws ParseException {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
@@ -217,7 +218,16 @@ public class EditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(FoodEntry.COLUMN_FOOD_NAME, nameString);
 
-        values.put(PantryContract.FoodEntry.COLUMN_USE_BY_DATE, useByDateString);
+        // Convert use-by date from dd/mm/yy format to yyyy-mm-dd format
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+
+        Date inputDate = dateFormat.parse(useByDateString);
+
+        final SimpleDateFormat dataDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        String outputDate = dataDateFormat.format(inputDate);
+
+        values.put(PantryContract.FoodEntry.COLUMN_USE_BY_DATE, outputDate);
 
         int amount = 0;
         if (!TextUtils.isEmpty(amountString)) {
@@ -294,7 +304,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save food item to database
-                saveFood();
+                try {
+                    saveFood();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 // Exit activity
                 finish();
                 return true;
@@ -395,7 +409,19 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
-            String useByDate = cursor.getString(useByDateColumnIndex);
+            String useByDateUnformatted = cursor.getString(useByDateColumnIndex);
+
+            // Convert use-by date from yyyy-MM-dd format to dd/MM/yy
+            final SimpleDateFormat dataDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+            String useByDate = null;
+            try {
+                Date dataDate = dataDateFormat.parse(useByDateUnformatted);
+                useByDate = dateFormat.format(dataDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             int units = cursor.getInt(unitColumnIndex);
             int amount = cursor.getInt(amountColumnIndex);
 
